@@ -285,7 +285,7 @@ func (s *KVStore) Begin() (*transaction.KVTxn, error) {
 }
 
 // BeginWithOption begins a transaction with the given StartTSOption
-func (s *KVStore) BeginWithOption(options StartTSOption) (*transaction.KVTxn, error) {
+func (s *KVStore) BeginWithOption(options *StartTSOption) (*transaction.KVTxn, error) {
 	if options.TxnScope == "" {
 		options.TxnScope = oracle.GlobalTxnScope
 	}
@@ -627,18 +627,18 @@ type StartTSOption struct {
 }
 
 // DefaultStartTSOption creates a default StartTSOption, ie. Work in GlobalTxnScope and get start ts when got used
-func DefaultStartTSOption() StartTSOption {
-	return StartTSOption{TxnScope: oracle.GlobalTxnScope}
+func DefaultStartTSOption() *StartTSOption {
+	return &StartTSOption{TxnScope: oracle.GlobalTxnScope}
 }
 
 // SetStartTS returns a new StartTSOption with StartTS set to the given startTS
-func (to StartTSOption) SetStartTS(startTS uint64) StartTSOption {
+func (to *StartTSOption) SetStartTS(startTS uint64) *StartTSOption {
 	to.StartTS = &startTS
 	return to
 }
 
 // SetTxnScope returns a new StartTSOption with TxnScope set to txnScope
-func (to StartTSOption) SetTxnScope(txnScope string) StartTSOption {
+func (to *StartTSOption) SetTxnScope(txnScope string) *StartTSOption {
 	to.TxnScope = txnScope
 	return to
 }
