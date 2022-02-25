@@ -26,8 +26,8 @@ import (
 	"time"
 
 	"github.com/pingcap/kvproto/pkg/kvrpcpb"
-	tikverr "github.com/tikv/client-go/v2/error"
-	"github.com/tikv/client-go/v2/util"
+	tikverr "github.com/tikv/client-go/v3/error"
+	"github.com/tikv/client-go/v3/util"
 )
 
 // ReturnedValue pairs the Value and AlreadyLocked flag for PessimisticLock return values result.

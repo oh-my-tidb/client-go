@@ -51,10 +51,10 @@ import (
 	"github.com/pingcap/kvproto/pkg/tikvpb"
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/suite"
-	"github.com/tikv/client-go/v2/internal/client"
-	"github.com/tikv/client-go/v2/internal/mockstore/mocktikv"
-	"github.com/tikv/client-go/v2/internal/retry"
-	"github.com/tikv/client-go/v2/tikvrpc"
+	"github.com/tikv/client-go/v3/internal/client"
+	"github.com/tikv/client-go/v3/internal/mockstore/mocktikv"
+	"github.com/tikv/client-go/v3/internal/retry"
+	"github.com/tikv/client-go/v3/tikvrpc"
 	"google.golang.org/grpc"
 )
 

@@ -41,7 +41,7 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/tikv/client-go/v2/tikvrpc"
+	"github.com/tikv/client-go/v3/tikvrpc"
 	"golang.org/x/sync/singleflight"
 )
 

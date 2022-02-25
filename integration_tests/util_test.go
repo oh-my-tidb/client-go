@@ -46,10 +46,10 @@ import (
 	txndriver "github.com/pingcap/tidb/store/driver/txn"
 	"github.com/pingcap/tidb/store/mockstore/unistore"
 	"github.com/stretchr/testify/require"
-	"github.com/tikv/client-go/v2/config"
-	"github.com/tikv/client-go/v2/tikv"
-	"github.com/tikv/client-go/v2/txnkv/transaction"
-	"github.com/tikv/client-go/v2/util/codec"
+	"github.com/tikv/client-go/v3/config"
+	"github.com/tikv/client-go/v3/tikv"
+	"github.com/tikv/client-go/v3/txnkv/transaction"
+	"github.com/tikv/client-go/v3/util/codec"
 	pd "github.com/tikv/pd/client"
 )
 

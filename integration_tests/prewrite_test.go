@@ -41,8 +41,8 @@ import (
 	"github.com/pingcap/tidb/store/mockstore/unistore"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/tikv/client-go/v2/tikv"
-	"github.com/tikv/client-go/v2/txnkv/transaction"
+	"github.com/tikv/client-go/v3/tikv"
+	"github.com/tikv/client-go/v3/txnkv/transaction"
 )
 
 func TestSetMinCommitTSInAsyncCommit(t *testing.T) {

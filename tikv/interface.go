@@ -37,10 +37,10 @@ package tikv
 import (
 	"time"
 
-	"github.com/tikv/client-go/v2/internal/locate"
-	"github.com/tikv/client-go/v2/oracle"
-	"github.com/tikv/client-go/v2/tikvrpc"
-	"github.com/tikv/client-go/v2/txnkv/txnlock"
+	"github.com/tikv/client-go/v3/internal/locate"
+	"github.com/tikv/client-go/v3/oracle"
+	"github.com/tikv/client-go/v3/tikvrpc"
+	"github.com/tikv/client-go/v3/txnkv/txnlock"
 )
 
 // Storage represent the kv.Storage runs on TiKV.

@@ -45,7 +45,7 @@ import (
 	"unsafe"
 
 	"github.com/pkg/errors"
-	"github.com/tikv/client-go/v2/internal/logutil"
+	"github.com/tikv/client-go/v3/internal/logutil"
 	"go.uber.org/zap"
 )
 

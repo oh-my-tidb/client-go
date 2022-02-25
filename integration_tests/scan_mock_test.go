@@ -39,7 +39,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/suite"
-	"github.com/tikv/client-go/v2/tikv"
+	"github.com/tikv/client-go/v3/tikv"
 )
 
 func TestScanMock(t *testing.T) {

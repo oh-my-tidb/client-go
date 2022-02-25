@@ -39,7 +39,7 @@ import (
 
 	"github.com/pingcap/kvproto/pkg/metapb"
 	"github.com/pkg/errors"
-	"github.com/tikv/client-go/v2/util/codec"
+	"github.com/tikv/client-go/v3/util/codec"
 	pd "github.com/tikv/pd/client"
 )
 

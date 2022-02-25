@@ -43,8 +43,8 @@ import (
 	"github.com/ninedraft/israce"
 	"github.com/pingcap/tidb/kv"
 	"github.com/stretchr/testify/suite"
-	tikvstore "github.com/tikv/client-go/v2/kv"
-	"github.com/tikv/client-go/v2/tikv"
+	tikvstore "github.com/tikv/client-go/v3/kv"
+	"github.com/tikv/client-go/v3/tikv"
 )
 
 func TestTiclient(t *testing.T) {

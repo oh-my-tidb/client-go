@@ -39,7 +39,7 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/tikv/client-go/v2/oracle"
+	"github.com/tikv/client-go/v3/oracle"
 	"go.uber.org/atomic"
 )
 

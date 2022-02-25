@@ -41,8 +41,8 @@ import (
 	"sync"
 	"unsafe"
 
-	tikverr "github.com/tikv/client-go/v2/error"
-	"github.com/tikv/client-go/v2/kv"
+	tikverr "github.com/tikv/client-go/v3/error"
+	"github.com/tikv/client-go/v3/kv"
 )
 
 var tombstone = []byte{}

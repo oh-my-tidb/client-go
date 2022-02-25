@@ -45,9 +45,9 @@ import (
 	"github.com/pingcap/kvproto/pkg/kvrpcpb"
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/suite"
-	tikverr "github.com/tikv/client-go/v2/error"
-	"github.com/tikv/client-go/v2/tikv"
-	"github.com/tikv/client-go/v2/util"
+	tikverr "github.com/tikv/client-go/v3/error"
+	"github.com/tikv/client-go/v3/tikv"
+	"github.com/tikv/client-go/v3/util"
 )
 
 func TestAsyncCommitFail(t *testing.T) {

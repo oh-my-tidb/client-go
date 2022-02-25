@@ -22,8 +22,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
-	"github.com/tikv/client-go/v2/config"
-	"github.com/tikv/client-go/v2/rawkv"
+	"github.com/tikv/client-go/v3/config"
+	"github.com/tikv/client-go/v3/rawkv"
 )
 
 func TestTTL(t *testing.T) {

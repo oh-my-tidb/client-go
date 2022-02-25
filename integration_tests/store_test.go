@@ -43,11 +43,11 @@ import (
 	"github.com/pingcap/failpoint"
 	"github.com/pingcap/kvproto/pkg/kvrpcpb"
 	"github.com/stretchr/testify/suite"
-	"github.com/tikv/client-go/v2/oracle"
-	"github.com/tikv/client-go/v2/oracle/oracles"
-	"github.com/tikv/client-go/v2/tikv"
-	"github.com/tikv/client-go/v2/tikvrpc"
-	"github.com/tikv/client-go/v2/txnkv"
+	"github.com/tikv/client-go/v3/oracle"
+	"github.com/tikv/client-go/v3/oracle/oracles"
+	"github.com/tikv/client-go/v3/tikv"
+	"github.com/tikv/client-go/v3/tikvrpc"
+	"github.com/tikv/client-go/v3/txnkv"
 )
 
 func TestStore(t *testing.T) {

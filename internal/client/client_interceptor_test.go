@@ -20,8 +20,8 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/tikv/client-go/v2/tikvrpc"
-	"github.com/tikv/client-go/v2/tikvrpc/interceptor"
+	"github.com/tikv/client-go/v3/tikvrpc"
+	"github.com/tikv/client-go/v3/tikvrpc/interceptor"
 )
 
 type emptyClient struct{}

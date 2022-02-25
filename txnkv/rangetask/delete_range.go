@@ -41,12 +41,12 @@ import (
 
 	"github.com/pingcap/kvproto/pkg/kvrpcpb"
 	"github.com/pkg/errors"
-	tikverr "github.com/tikv/client-go/v2/error"
-	"github.com/tikv/client-go/v2/internal/client"
-	"github.com/tikv/client-go/v2/internal/locate"
-	"github.com/tikv/client-go/v2/internal/retry"
-	"github.com/tikv/client-go/v2/kv"
-	"github.com/tikv/client-go/v2/tikvrpc"
+	tikverr "github.com/tikv/client-go/v3/error"
+	"github.com/tikv/client-go/v3/internal/client"
+	"github.com/tikv/client-go/v3/internal/locate"
+	"github.com/tikv/client-go/v3/internal/retry"
+	"github.com/tikv/client-go/v3/kv"
+	"github.com/tikv/client-go/v3/tikvrpc"
 )
 
 type storage interface {

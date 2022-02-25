@@ -17,8 +17,8 @@ package txnlock
 import (
 	"github.com/pingcap/kvproto/pkg/kvrpcpb"
 	"github.com/pkg/errors"
-	"github.com/tikv/client-go/v2/internal/locate"
-	"github.com/tikv/client-go/v2/internal/retry"
+	"github.com/tikv/client-go/v3/internal/locate"
+	"github.com/tikv/client-go/v3/internal/retry"
 )
 
 // LockProbe exposes some lock utilities for testing purpose.

@@ -20,8 +20,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/tikv/client-go/v2/oracle"
-	"github.com/tikv/client-go/v2/tikv"
+	"github.com/tikv/client-go/v3/oracle"
+	"github.com/tikv/client-go/v3/tikv"
 )
 
 var (

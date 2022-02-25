@@ -42,8 +42,8 @@ import (
 	"github.com/pingcap/kvproto/pkg/pdpb"
 	"github.com/pingcap/log"
 	"github.com/pkg/errors"
-	"github.com/tikv/client-go/v2/internal/logutil"
-	"github.com/tikv/client-go/v2/util"
+	"github.com/tikv/client-go/v3/internal/logutil"
+	"github.com/tikv/client-go/v3/util"
 	"go.uber.org/zap"
 )
 

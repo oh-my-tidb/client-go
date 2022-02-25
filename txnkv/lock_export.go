@@ -16,7 +16,7 @@ package txnkv
 
 import (
 	"github.com/pingcap/kvproto/pkg/kvrpcpb"
-	"github.com/tikv/client-go/v2/txnkv/txnlock"
+	"github.com/tikv/client-go/v3/txnkv/txnlock"
 )
 
 // Lock represents a lock from tikv server.

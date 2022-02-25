@@ -41,8 +41,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/tikv/client-go/v2/oracle"
-	"github.com/tikv/client-go/v2/oracle/oracles"
+	"github.com/tikv/client-go/v3/oracle"
+	"github.com/tikv/client-go/v3/oracle/oracles"
 )
 
 func TestLocalOracle(t *testing.T) {

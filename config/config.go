@@ -41,9 +41,9 @@ import (
 	"sync/atomic"
 
 	"github.com/pkg/errors"
-	"github.com/tikv/client-go/v2/internal/logutil"
-	"github.com/tikv/client-go/v2/oracle"
-	"github.com/tikv/client-go/v2/util"
+	"github.com/tikv/client-go/v3/internal/logutil"
+	"github.com/tikv/client-go/v3/oracle"
+	"github.com/tikv/client-go/v3/util"
 	"go.uber.org/zap"
 )
 

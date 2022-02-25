@@ -20,10 +20,10 @@ import (
 
 	"github.com/pingcap/kvproto/pkg/kvrpcpb"
 	"github.com/pkg/errors"
-	tikverr "github.com/tikv/client-go/v2/error"
-	"github.com/tikv/client-go/v2/tikv"
-	"github.com/tikv/client-go/v2/tikvrpc"
-	"github.com/tikv/client-go/v2/util"
+	tikverr "github.com/tikv/client-go/v3/error"
+	"github.com/tikv/client-go/v3/tikv"
+	"github.com/tikv/client-go/v3/tikvrpc"
+	"github.com/tikv/client-go/v3/util"
 )
 
 // mock TiKV RPC client that hooks message by failpoint

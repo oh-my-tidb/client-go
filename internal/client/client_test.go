@@ -49,8 +49,8 @@ import (
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/tikv/client-go/v2/config"
-	"github.com/tikv/client-go/v2/tikvrpc"
+	"github.com/tikv/client-go/v3/config"
+	"github.com/tikv/client-go/v3/tikvrpc"
 	"google.golang.org/grpc/metadata"
 )
 

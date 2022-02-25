@@ -17,7 +17,7 @@ package config
 import (
 	"testing"
 
-	"github.com/tikv/client-go/v2/util"
+	"github.com/tikv/client-go/v3/util"
 	"go.uber.org/goleak"
 )
 

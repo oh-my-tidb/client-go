@@ -39,7 +39,7 @@ import (
 	"math"
 	"unsafe"
 
-	"github.com/tikv/client-go/v2/kv"
+	"github.com/tikv/client-go/v3/kv"
 )
 
 const (

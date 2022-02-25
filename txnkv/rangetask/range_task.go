@@ -42,10 +42,10 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/tikv/client-go/v2/internal/logutil"
-	"github.com/tikv/client-go/v2/internal/retry"
-	"github.com/tikv/client-go/v2/kv"
-	"github.com/tikv/client-go/v2/metrics"
+	"github.com/tikv/client-go/v3/internal/logutil"
+	"github.com/tikv/client-go/v3/internal/retry"
+	"github.com/tikv/client-go/v3/kv"
+	"github.com/tikv/client-go/v3/metrics"
 	"go.uber.org/zap"
 )
 

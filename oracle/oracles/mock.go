@@ -40,7 +40,7 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/tikv/client-go/v2/oracle"
+	"github.com/tikv/client-go/v3/oracle"
 )
 
 var errStopped = errors.New("stopped")
