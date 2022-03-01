@@ -11,17 +11,22 @@ TiKV Go Client provides support for interacting with the [TiKV](https://github.c
 
 ## Package versions
 
-There are 2 major versions of the `client-go` package.
+There are 3 major versions of the `client-go` package.
 
-- `v2` is the latest stable version. This version was extracted from [pingcap/tidb](https://github.com/pingcap/tidb) and it includes new TiKV features like Follower Read, 1PC, Async Commit. The development of this version is on the `master` branch. The documentation for this version is below.
+- `v2` is the latest stable version, recommended for production use. This version was extracted from [pingcap/tidb](https://github.com/pingcap/tidb) and it includes new TiKV features like Follower Read, 1PC, Async Commit. The documentation for this version is below.
+
+- `v3` is the newer version under development. We plan to make client-go more well structured and easy to use in the new version. The development of this version is on the `master` branch.
 
 - `v1` is the previous stable version and is only maintained for bug fixes. You can read the documentation [here](https://tikv.org/docs/4.0/reference/clients/go/).
 
 ## Usage/Examples
 
 ```bash
-  # valid versions be like @latest, @e5f932ae270887550b0cd221343dbd6b870b6c8f, @v2.0.0, @v2.0.1...
-  go get github.com/tikv/client-go/v2@COMMIT_HASH_OR_TAG_VERSION
+  # valid versions be like @latest, @v2.0.0, @v2.0.1...
+  go get github.com/tikv/client-go/v2@TAG_VERSION
+
+  # use develop branch (v3)
+  go get github.com/tikv/client-go/v3@master
 ```
 
 Explanation of related concepts and sample code can be found in the [Client-Go Wiki](https://github.com/tikv/client-go/wiki). There are also executable examples in [examples directory](https://github.com/tikv/client-go/tree/master/examples).
