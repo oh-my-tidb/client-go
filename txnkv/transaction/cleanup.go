@@ -85,7 +85,7 @@ func (action actionCleanup) handleSingleBatch(c *twoPhaseCommitter, bo *retry.Ba
 		return err
 	}
 	if regionErr != nil {
-		err = bo.Backoff(retry.BoRegionMiss, errors.New(regionErr.String()))
+		err = bo.Backoff(retry.BoRegionMiss, retry.WrapRegionError(batch.region.GetID(), regionErr))
 		if err != nil {
 			return err
 		}

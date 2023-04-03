@@ -707,7 +707,7 @@ func (c *Client) sendReq(ctx context.Context, key []byte, req *tikvrpc.Request, 
 			return nil, nil, err
 		}
 		if regionErr != nil {
-			err := bo.Backoff(retry.BoRegionMiss, errors.New(regionErr.String()))
+			err := bo.Backoff(retry.BoRegionMiss, retry.WrapRegionError(loc.Region.GetID(), regionErr))
 			if err != nil {
 				return nil, nil, err
 			}
@@ -798,7 +798,7 @@ func (c *Client) doBatchReq(bo *retry.Backoffer, batch kvrpc.Batch, options *raw
 		return batchResp
 	}
 	if regionErr != nil {
-		err := bo.Backoff(retry.BoRegionMiss, errors.New(regionErr.String()))
+		err := bo.Backoff(retry.BoRegionMiss, retry.WrapRegionError(batch.RegionID.GetID(), regionErr))
 		if err != nil {
 			batchResp.Error = err
 			return batchResp
@@ -861,7 +861,7 @@ func (c *Client) sendDeleteRangeReq(ctx context.Context, startKey []byte, endKey
 			return nil, nil, err
 		}
 		if regionErr != nil {
-			err := bo.Backoff(retry.BoRegionMiss, errors.New(regionErr.String()))
+			err := bo.Backoff(retry.BoRegionMiss, retry.WrapRegionError(loc.Region.GetID(), regionErr))
 			if err != nil {
 				return nil, nil, err
 			}
@@ -947,7 +947,7 @@ func (c *Client) doBatchPut(bo *retry.Backoffer, batch kvrpc.Batch, opts *rawOpt
 		return err
 	}
 	if regionErr != nil {
-		err := bo.Backoff(retry.BoRegionMiss, errors.New(regionErr.String()))
+		err := bo.Backoff(retry.BoRegionMiss, retry.WrapRegionError(batch.RegionID.GetID(), regionErr))
 		if err != nil {
 			return err
 		}

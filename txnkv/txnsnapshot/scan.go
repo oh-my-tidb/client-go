@@ -268,7 +268,7 @@ func (s *Scanner) getData(bo *retry.Backoffer) error {
 			// there's something wrong.
 			// For the real EpochNotMatch error, don't backoff.
 			if regionErr.GetEpochNotMatch() == nil || locate.IsFakeRegionError(regionErr) {
-				err = bo.Backoff(retry.BoRegionMiss, errors.New(regionErr.String()))
+				err = bo.Backoff(retry.BoRegionMiss, retry.WrapRegionError(loc.Region.GetID(), regionErr))
 				if err != nil {
 					return err
 				}

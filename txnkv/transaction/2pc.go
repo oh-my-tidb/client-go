@@ -1230,7 +1230,7 @@ func sendTxnHeartBeat(bo *retry.Backoffer, store kvstore, primary []byte, startT
 			// there's something wrong.
 			// For the real EpochNotMatch error, don't backoff.
 			if regionErr.GetEpochNotMatch() == nil || locate.IsFakeRegionError(regionErr) {
-				err = bo.Backoff(retry.BoRegionMiss, errors.New(regionErr.String()))
+				err = bo.Backoff(retry.BoRegionMiss, retry.WrapRegionError(loc.Region.GetID(), regionErr))
 				if err != nil {
 					return 0, false, err
 				}

@@ -306,7 +306,7 @@ func (lr *LockResolver) BatchResolveLocks(bo *retry.Backoffer, locks []*Lock, lo
 	}
 
 	if regionErr != nil {
-		err = bo.Backoff(retry.BoRegionMiss, errors.New(regionErr.String()))
+		err = bo.Backoff(retry.BoRegionMiss, retry.WrapRegionError(loc.GetID(), regionErr))
 		if err != nil {
 			return false, err
 		}
@@ -727,7 +727,7 @@ func (lr *LockResolver) getTxnStatus(bo *retry.Backoffer, txnID uint64, primary 
 			return status, err
 		}
 		if regionErr != nil {
-			err = bo.Backoff(retry.BoRegionMiss, errors.New(regionErr.String()))
+			err = bo.Backoff(retry.BoRegionMiss, retry.WrapRegionError(loc.Region.GetID(), regionErr))
 			if err != nil {
 				return status, err
 			}
@@ -867,7 +867,7 @@ func (lr *LockResolver) checkSecondaries(bo *retry.Backoffer, txnID uint64, curK
 		return err
 	}
 	if regionErr != nil {
-		err = bo.Backoff(retry.BoRegionMiss, errors.New(regionErr.String()))
+		err = bo.Backoff(retry.BoRegionMiss, retry.WrapRegionError(curRegionID.GetID(), regionErr))
 		if err != nil {
 			return err
 		}
@@ -1023,7 +1023,7 @@ func (lr *LockResolver) resolveRegionLocks(bo *retry.Backoffer, l *Lock, region 
 		return err
 	}
 	if regionErr != nil {
-		err := bo.Backoff(retry.BoRegionMiss, errors.New(regionErr.String()))
+		err := bo.Backoff(retry.BoRegionMiss, retry.WrapRegionError(region.GetID(), regionErr))
 		if err != nil {
 			return err
 		}
@@ -1101,7 +1101,7 @@ func (lr *LockResolver) resolveLock(bo *retry.Backoffer, l *Lock, status TxnStat
 			return err
 		}
 		if regionErr != nil {
-			err = bo.Backoff(retry.BoRegionMiss, errors.New(regionErr.String()))
+			err = bo.Backoff(retry.BoRegionMiss, retry.WrapRegionError(loc.Region.GetID(), regionErr))
 			if err != nil {
 				return err
 			}
@@ -1156,7 +1156,7 @@ func (lr *LockResolver) resolvePessimisticLock(bo *retry.Backoffer, l *Lock) err
 			return err
 		}
 		if regionErr != nil {
-			err = bo.Backoff(retry.BoRegionMiss, errors.New(regionErr.String()))
+			err = bo.Backoff(retry.BoRegionMiss, retry.WrapRegionError(loc.Region.GetID(), regionErr))
 			if err != nil {
 				return err
 			}

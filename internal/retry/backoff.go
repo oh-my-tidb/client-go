@@ -43,6 +43,7 @@ import (
 	"time"
 
 	"github.com/opentracing/opentracing-go"
+	"github.com/pingcap/kvproto/pkg/errorpb"
 	"github.com/pingcap/log"
 	"github.com/pkg/errors"
 	tikverr "github.com/tikv/client-go/v2/error"
@@ -206,7 +207,7 @@ func (b *Backoffer) BackoffWithCfgAndMaxSleep(cfg *Config, maxSleepMs int, err e
 	if ts := b.ctx.Value(TxnStartKey); ts != nil {
 		startTs = ts
 	}
-	logutil.Logger(b.ctx).Debug("retry later",
+	logutil.Logger(b.ctx).Info("retry later",
 		zap.Error(err),
 		zap.Int("totalSleep", b.totalSleep),
 		zap.Int("excludedSleep", b.excludedSleep),
@@ -360,4 +361,21 @@ func (b *Backoffer) longestSleepCfg() (*Config, int) {
 		}
 	}
 	return nil, 0
+}
+
+type regionError struct {
+	regionID uint64
+	err      *errorpb.Error
+}
+
+func (e regionError) Error() string {
+	return fmt.Sprintf("region %d: %s", e.regionID, e.err.String())
+}
+
+// WrapRegionError wraps a region error and request region id.
+func WrapRegionError(id uint64, err *errorpb.Error) error {
+	return regionError{
+		regionID: id,
+		err:      err,
+	}
 }

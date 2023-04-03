@@ -162,7 +162,7 @@ func (s *KVStore) batchSendSingleRegion(bo *Backoffer, batch kvrpc.Batch, scatte
 		return batchResp
 	}
 	if regionErr != nil {
-		err := bo.Backoff(retry.BoRegionMiss, errors.New(regionErr.String()))
+		err := bo.Backoff(retry.BoRegionMiss, retry.WrapRegionError(batch.RegionID.GetID(), regionErr))
 		if err != nil {
 			batchResp.Error = err
 			return batchResp
