@@ -267,8 +267,7 @@ func (o *pdOracle) updateTS(ctx context.Context) {
 			}
 			o.mu.RUnlock()
 			// Update the timestamp for each txnScope
-			for _, key := range keys {
-				txnScope := key
+			for _, txnScope := range keys {
 				ts, err := o.getTimestamp(ctx, txnScope)
 				if err != nil {
 					logutil.Logger(ctx).Error("updateTS error", zap.String("txnScope", txnScope), zap.Error(err))
