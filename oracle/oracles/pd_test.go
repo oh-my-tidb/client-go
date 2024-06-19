@@ -180,3 +180,20 @@ func TestNonFutureStaleTSO(t *testing.T) {
 		}
 	}
 }
+
+func BenchmarkGetTimestamp_20Threads(b *testing.B) {
+	const N = 20
+	pdClient := MockPdClient{}
+	o := oracles.NewPdOracleWithClient(&pdClient)
+	var wg sync.WaitGroup
+	wg.Add(N)
+	for i := 0; i < N; i++ {
+		go func() {
+			for i := 0; i < b.N; i++ {
+				_, _ = o.GetTimestamp(context.Background(), &oracle.Option{})
+			}
+			wg.Done()
+		}()
+	}
+	wg.Wait()
+}
