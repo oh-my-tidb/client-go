@@ -89,6 +89,10 @@ func (c *MockPdClient) GetTS(ctx context.Context) (int64, int64, error) {
 	return 0, c.logicalTimestamp.Add(1), nil
 }
 
+func (c *MockPdClient) GetLocalTS(ctx context.Context, dcLocation string) (int64, int64, error) {
+	return 0, c.logicalTimestamp.Add(1), nil
+}
+
 func TestPdOracle_SetLowResolutionTimestampUpdateInterval(t *testing.T) {
 	pdClient := MockPdClient{}
 	o := oracles.NewPdOracleWithClient(&pdClient)
