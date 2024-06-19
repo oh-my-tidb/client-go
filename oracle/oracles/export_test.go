@@ -59,12 +59,15 @@ func SetOracleHookCurrentTime(oc oracle.Oracle, t time.Time) {
 
 // NewEmptyPDOracle exports pdOracle struct to test
 func NewEmptyPDOracle() oracle.Oracle {
-	return &pdOracle{}
+	return &pdOracle{
+		lastTSMap: make(map[string]*atomic.Pointer[lastTSO]),
+	}
 }
 
 func NewPdOracleWithClient(client pd.Client) oracle.Oracle {
 	return &pdOracle{
-		c: client,
+		c:         client,
+		lastTSMap: make(map[string]*atomic.Pointer[lastTSO]),
 	}
 }
 
@@ -85,8 +88,8 @@ func StartTsUpdateLoop(o oracle.Oracle, ctx context.Context, wg *sync.WaitGroup)
 func SetEmptyPDOracleLastTs(oc oracle.Oracle, ts uint64) {
 	switch o := oc.(type) {
 	case *pdOracle:
-		lastTSInterface, _ := o.lastTSMap.LoadOrStore(oracle.GlobalTxnScope, &atomic.Pointer[lastTSO]{})
-		lastTSPointer := lastTSInterface.(*atomic.Pointer[lastTSO])
+		o.setLastTS(0, oracle.GlobalTxnScope) // create map item
+		lastTSPointer := o.lastTSMap[oracle.GlobalTxnScope]
 		lastTSPointer.Store(&lastTSO{tso: ts, arrival: ts})
 	}
 }
