@@ -59,6 +59,7 @@ type pdOracle struct {
 	c pd.Client
 	// txn_scope (string) -> lastTSPointer (*atomic.Pointer[lastTSO])
 	lastTSMap            sync.Map
+	lastGlobal           atomic.Pointer[lastTSO]
 	quit                 chan struct{}
 	lastTSUpdateInterval atomic.Int64
 }
@@ -198,17 +199,23 @@ func (o *pdOracle) setLastTS(ts uint64, txnScope string) {
 		tso:     ts,
 		arrival: o.getArrivalTimestamp(),
 	}
-	lastTSInterface, ok := o.lastTSMap.Load(txnScope)
-	if !ok {
-		pointer := &atomic.Pointer[lastTSO]{}
-		pointer.Store(current)
-		// do not handle the stored case, because it only runs once.
-		lastTSInterface, _ = o.lastTSMap.LoadOrStore(txnScope, pointer)
+	var lastTSPointer *atomic.Pointer[lastTSO]
+	if txnScope == oracle.GlobalTxnScope {
+		lastTSPointer = &o.lastGlobal
+	} else {
+		lastTSInterface, ok := o.lastTSMap.Load(txnScope)
+		if !ok {
+			pointer := &atomic.Pointer[lastTSO]{}
+			pointer.Store(current)
+			// do not handle the stored case, because it only runs once.
+			lastTSInterface, _ = o.lastTSMap.LoadOrStore(txnScope, pointer)
+		}
+		lastTSPointer = lastTSInterface.(*atomic.Pointer[lastTSO])
 	}
-	lastTSPointer := lastTSInterface.(*atomic.Pointer[lastTSO])
+
 	for {
 		last := lastTSPointer.Load()
-		if current.tso <= last.tso || current.arrival <= last.arrival {
+		if last != nil && (current.tso <= last.tso || current.arrival <= last.arrival) {
 			return
 		}
 		if lastTSPointer.CompareAndSwap(last, current) {
@@ -226,8 +233,8 @@ func (o *pdOracle) getLastTS(txnScope string) (uint64, bool) {
 }
 
 func (o *pdOracle) getLastTSWithArrivalTS(txnScope string) (*lastTSO, bool) {
-	if txnScope == "" {
-		txnScope = oracle.GlobalTxnScope
+	if txnScope == "" || txnScope == oracle.GlobalTxnScope {
+		return o.lastGlobal.Load(), true
 	}
 	lastTSInterface, ok := o.lastTSMap.Load(txnScope)
 	if !ok {
@@ -248,8 +255,7 @@ func (o *pdOracle) updateTS(ctx context.Context) {
 	for {
 		select {
 		case <-ticker.C:
-			// Update the timestamp for each txnScope
-			o.lastTSMap.Range(func(key, _ interface{}) bool {
+			update := func(key, _ interface{}) bool {
 				txnScope := key.(string)
 				ts, err := o.getTimestamp(ctx, txnScope)
 				if err != nil {
@@ -258,7 +264,11 @@ func (o *pdOracle) updateTS(ctx context.Context) {
 				}
 				o.setLastTS(ts, txnScope)
 				return true
-			})
+			}
+			// Update the timestamp for each txnScope
+			o.lastTSMap.Range(update)
+			update(oracle.GlobalTxnScope, nil)
+
 			newInterval := o.lastTSUpdateInterval.Load()
 			if newInterval != currentInterval {
 				currentInterval = newInterval

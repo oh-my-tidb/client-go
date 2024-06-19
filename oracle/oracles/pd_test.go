@@ -37,6 +37,7 @@ package oracles_test
 import (
 	"context"
 	"math"
+	"math/rand"
 	"sync"
 	"sync/atomic"
 	"testing"
@@ -85,6 +86,10 @@ type MockPdClient struct {
 }
 
 func (c *MockPdClient) GetTS(ctx context.Context) (int64, int64, error) {
+	return 0, c.logicalTimestamp.Add(1), nil
+}
+
+func (c *MockPdClient) GetLocalTS(ctx context.Context, dcLocation string) (int64, int64, error) {
 	return 0, c.logicalTimestamp.Add(1), nil
 }
 
@@ -179,4 +184,41 @@ func TestNonFutureStaleTSO(t *testing.T) {
 			}
 		}
 	}
+}
+
+func BenchmarkGetTimestamp_20Threads(b *testing.B) {
+	const N = 20
+	pdClient := MockPdClient{}
+	o := oracles.NewPdOracleWithClient(&pdClient)
+	var wg sync.WaitGroup
+	wg.Add(N)
+	for i := 0; i < N; i++ {
+		go func() {
+			for i := 0; i < b.N; i++ {
+				_, _ = o.GetTimestamp(context.Background(), &oracle.Option{})
+			}
+			wg.Done()
+		}()
+	}
+	wg.Wait()
+}
+
+func BenchmarkGetTimestamp_20Threads_MultipleScope(b *testing.B) {
+	const N = 20
+	txnScopes := []string{"global", "test", "test2"}
+	pdClient := MockPdClient{}
+	o := oracles.NewPdOracleWithClient(&pdClient)
+	var wg sync.WaitGroup
+	wg.Add(N)
+	for i := 0; i < N; i++ {
+		go func() {
+			for i := 0; i < b.N; i++ {
+				_, _ = o.GetTimestamp(context.Background(), &oracle.Option{
+					TxnScope: txnScopes[rand.Intn(len(txnScopes))],
+				})
+			}
+			wg.Done()
+		}()
+	}
+	wg.Wait()
 }
