@@ -275,6 +275,8 @@ func NewPDClientWithAPIContext(pdAddrs []string, apiContext pd.APIContext) (pd.C
 					Timeout: time.Duration(cfg.TiKVClient.GrpcKeepAliveTimeout) * time.Second,
 				},
 			),
+			grpc.WithDefaultCallOptions(grpc.MaxCallRecvMsgSize(256*1024*1024)),
+			grpc.WithDefaultCallOptions(grpc.MaxCallSendMsgSize(256*1024*1024)),
 		),
 		opt.WithCustomTimeoutOption(time.Duration(cfg.PDClient.PDServerTimeout)*time.Second),
 		opt.WithForwardingOption(config.GetGlobalConfig().EnableForwarding),
